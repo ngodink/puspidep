@@ -5,6 +5,8 @@
 @section('meta_description', Str::words(strip_tags($post->content), 15))
 @section('meta_image', $post->img ? Storage::url($post->img) : null)
 
+@php($user = auth()->user())
+
 @section('content')
 <div class="container py-4 bg-white rounded">
 	<div class="row">
@@ -38,9 +40,52 @@
 								<i>{{ $post->author->profile->bio ?? 'Tidak ada bio' }}</i>
 							</div>
 						</div>
-						<div class="mt-4">
+						<article class="my-4">
 							{!! $post->content !!}
-						</div>
+						</article>
+						@if($post->commentable)
+							<div class="mb-4">
+								<p><strong>Komentar</strong> ({{ $post->comments->count() }})</p>
+								@forelse($post->comments as $comment)
+									<section class="d-flex flex-row w-100">
+										<div>
+											<img class="rounded-circle mr-3" src="{{ $comment->commentator->profile->avatar_path }}" alt="" style="width: 46px;">
+										</div>
+										<div class="flex-grow-1 bg-light rounded p-3">
+											<div class="font-weight-bold">{{ $comment->commentator->profile->full_name }}</div>
+											<article class="comments-readmore overflow-hidden">{{ $comment->content }}</article>
+											<small class="text-muted"><i class="mdi mdi-calendar-outline"></i> {{ $comment->created_at->ISOFormat('llll') }}</small>
+										</div>
+									</section>
+								@empty
+									Tidak ada komentar
+								@endforelse
+							</div>
+							<div>
+								<hr>
+								@auth
+									<div class="d-flex flex-row w-100">
+										<div>
+											<img class="rounded-circle mr-3" src="{{ $user->profile->avatar_path }}" alt="" style="width: 46px;">
+										</div>
+										<div class="flex-grow-1">
+											<form class="form-block form-confirm" action="{{ route('web::comment', ['post' => $post->id]) }}" method="post"> @csrf
+												<div class="form-group">
+													<textarea class="form-control" name="content" placeholder="Tulis komentar Anda disini ..." required></textarea>
+													<small>Anda berkomentar sebagai <strong>{{ $user->profile->name }}</strong></small>
+												</div>
+												<button class="btn btn-dark"><i class="mdi mdi-send-outline mdi-rotate-315"></i> Kirim</button>
+											</form>
+										</div>
+									</div>
+								@else
+									<a class="btn btn-dark btn-sm" href="{{ route('account::auth.login', ['next' => url()->current()]) }}">Login untuk berkomentar &raquo;</a>
+								@endauth
+							</div>
+						@else
+							<hr>
+							<div class="text-muted">Komentar untuk postingan ini telah dinonaktifkan</div>
+						@endif
 					</div>
 				</div>
 			</div>
@@ -58,3 +103,12 @@
 	</div>
 </div>
 @endsection
+
+@push('script')
+<script src="{{ asset('js/readmore.min.js') }}"></script>
+<script>
+	$(() => {
+		$('.comments-readmore').readmore({collapsedHeight:70});
+	})
+</script>
+@endpush

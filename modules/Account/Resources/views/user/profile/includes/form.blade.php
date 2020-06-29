@@ -97,10 +97,10 @@
 			<h5 class="text-muted font-weight-normal mb-3">Data kewarganegaraan</h5>
 		</div>
 	</div>
-	<div class="form-group required row">
+	<div class="form-group row">
 		<label class="col-md-4 col-lg-3 col-form-label">NIK</label>
 		<div class="col-md-7">
-			<input type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik', $user->profile->nik) }}" required data-mask="0000000000000000">
+			<input type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik', $user->profile->nik) }}" data-mask="0000000000000000">
 			<small class="form-text text-muted">Nomor Induk Kependudukan, sesuai KTP/KK/Identitas resmi lainnya</small>
 			@error('nik')
 			<span class="invalid-feedback"> {{ $message }} </span>

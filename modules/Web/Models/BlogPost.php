@@ -82,6 +82,13 @@ class BlogPost extends Model
     }
 
     /**
+     * This hasMany unpublished comments.
+     */
+    public function unpublishedComments () {
+        return $this->comments()->whereNull('published_at');
+    }
+
+    /**
      * This belongsToMany categories.
      */
     public function categories () {

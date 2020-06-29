@@ -18,7 +18,7 @@ class BlogPostComment extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'post_id', 'content', 'commentator_id'
+        'post_id', 'content', 'commentator_id', 'published_at'
     ];
 
     /**

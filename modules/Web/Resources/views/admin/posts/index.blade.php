@@ -40,6 +40,7 @@
 							<th>Judul</th>
 							<th>Kategori</th>
 							<th>Dipublikasi</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +48,13 @@
 							<tr>
 								<td class="align-middle">{{ $posts->firstItem() + $loop->iteration - 1 }}</td>
 								<td style="min-width: 300px;">
-									<strong>{{ $post->title }}</strong> <br>
+									<strong>{{ $post->title }}</strong>
+									@if($post->unpublished_comments_count)
+										<a href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}">
+											<span class="badge badge-pill badge-danger"><i class="mdi mdi-comment-alert"></i> {{ $post->unpublished_comments_count }}</span>
+										</a>
+									@endif
+									<br>
 									@if($post->trashed())
 										<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.restore', ['post' => $post->id]) }}" method="POST"> @csrf @method('PUT')
 											<button class="btn btn-link align-baseline text-success p-0 mr-2">Pulihkan</button>
@@ -56,7 +63,7 @@
 											<button class="btn btn-link align-baseline text-danger p-0 mr-2">Hapus permanen</button>
 										</form>
 									@else
-										<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id]) }}">Edit</a>
+										<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id, 'next' => url()->current()]) }}">Edit</a>
 										<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.destroy', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
 											<button class="btn btn-link align-baseline text-danger p-0 mr-2">Buang</button>
 										</form>
@@ -73,10 +80,13 @@
 									</div>
 								</td>
 								<td class="align-middle">
-									<small>{{ $post->published_at ? $post->published_at->format('d/m/Y') : '-' }}</small><br>
+									<small>{{ $post->published_at ? $post->published_at->ISOFormat('L') : '-' }}</small><br>
 									<i class="mdi mdi-eye"></i> <small>{{ $post->views_count }}</small>
 									{{-- <i class="mdi mdi-heart"></i> <small>{{ $post->likes_count }}</small> --}}
 									<i class="mdi {{ $post->commentable ? 'mdi-comment' : 'mdi-comment-remove' }}"></i> <small>{{ $post->comments_count }}</small>
+								</td>
+								<td class="align-middle">
+									<a class="btn btn-primary btn-sm rounded-pill" href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}"><i class="mdi mdi-eye-outline"></i> Detail</a>
 								</td>
 							</tr>
 						@empty
@@ -112,6 +122,12 @@
 					</div>
 				</form>
 			</div>
+		</div>
+		<div class="card border-0 mb-4">
+			<div class="card-header bg-gray-200">
+				<i class="mdi mdi-comment-multiple"></i> Komentar terakhir
+			</div>
+			@include('web::includes.comment-widgets-1', ['comments' => $latest_comments])
 		</div>
 		<div class="card border-0 mb-4">
 			<div class="card-header bg-gray-200">

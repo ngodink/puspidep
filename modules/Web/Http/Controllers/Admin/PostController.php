@@ -4,8 +4,9 @@ namespace Modules\Web\Http\Controllers\Admin;
 
 use Str;
 use Storage;
-use Modules\Web\Models\BlogPost;
 use Modules\Web\Models\BlogCategory;
+use Modules\Web\Models\BlogPost;
+use Modules\Web\Models\BlogPostComment;
 use Modules\Web\Http\Requests\Admin\Post\StoreRequest;
 use Modules\Web\Http\Requests\Admin\Post\UpdateRequest;
 
@@ -19,7 +20,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-    	$posts = BlogPost::with('categories')->when($request->get('search'), function ($query, $v) {
+    	$posts = BlogPost::withCount('unpublishedComments')->with('categories')->when($request->get('search'), function ($query, $v) {
     		return $query->where('title', 'like', '%'.$v.'%');
     	})->when($request->get('category'), function ($query, $v) {
     		return $query->whereHas('categories', function ($category) use ($v) {
@@ -31,7 +32,9 @@ class PostController extends Controller
 
     	$categories = BlogCategory::all();
 
-        return view('web::admin.posts.index', compact('posts', 'categories'));
+        $latest_comments = BlogPostComment::orderByDesc('created_at')->limit(5)->get();
+
+        return view('web::admin.posts.index', compact('posts', 'categories', 'latest_comments'));
     }
 
     /**
@@ -76,9 +79,11 @@ class PostController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show(BlogPost $post)
+    public function show(Request $request, BlogPost $post)
     {
+        $post->load('comments');
 
+        return view('web::admin.posts.show', compact('post'));
     }
 
     /**

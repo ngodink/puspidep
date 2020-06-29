@@ -27,8 +27,7 @@ class UpdateRequest extends FormRequest
             'pob'           => 'required|string|max:191',
             'dob'           => 'required|string|date_format:d-m-Y',
             'sex'           => 'required|in:'.join(',', array_keys(UserProfile::$sex)),
-            'blood'         => 'nullable|in:'.join(',', array_keys(UserProfile::$blood)),
-            'nik'           => 'required|numeric',
+            'blood'         => 'nullable|in:'.join(',', array_keys(UserProfile::$blood))
         ];
     }
 
@@ -44,8 +43,7 @@ class UpdateRequest extends FormRequest
             'pob' => 'tempat lahir',
             'dob' => 'tanggal lahir',
             'sex' => 'jenis kelamin',
-            'blood' => 'golongan darah',
-            'nik' => 'NIK',
+            'blood' => 'golongan darah'
         ];
     }
 }

@@ -19,16 +19,6 @@
 					</div>
 				@endforeach
 			</div>
-			{{-- @foreach($categories as $category)
-				<h5 class="mb-3">
-					<a class="text-dark" href="{{ route('web::category', ['category' => $category->slug]) }}"><strong>{{ $category->name }}</strong></a>
-				</h5>
-				@include('web::includes.post-widgets-1', ['posts' => $category->load(['posts' => function($q) { return $q->take(6); }])->posts])
-				<a href="{{ route('web::category', ['category' => $category->slug]) }}"><strong>Lebih banyak &raquo;</strong></a>
-				@if(!$loop->last)
-					<hr class="my-4">
-				@endif
-			@endforeach --}}
 		</div>
 		<div class="col-md-4">
 			<h5 class="mb-3"><strong>Populer</strong></h5>

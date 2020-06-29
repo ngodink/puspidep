@@ -83,13 +83,12 @@
 					</div>
 					<div class="form-group">
 						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="commentable" checked name="commentable" value="1">
+							<input type="checkbox" class="custom-control-input" id="commentable" name="commentable" value="1" @if(old('commentable', $post->commentable == 1 ? 1 : 0)) checked @endif>
 							<label class="custom-control-label" for="commentable">Centang untuk mengaktifkan fitur komentar</label>
 						</div>
 					</div>
 					<div class="form-group mb-0">
 						<button type="submit" class="btn btn-success"><i class="mdi mdi-check"></i> Publish</button>
-						<button type="button" class="btn btn-warning" id="save_as_draft"><i class="mdi mdi-content-save-outline"></i> Simpan sebagai draft</button>
 						<a class="btn btn-secondary" href="{{ request('next', route('web::admin.posts.index')) }}"><i class="mdi mdi-arrow-left"></i> Kembali</a>
 					</div>
 				</div>
@@ -110,12 +109,6 @@
 		$('.summernote').summernote({
 			placeholder: 'Tulis isi postingan disini ...',
 			height: 250
-		});
-		$('#save_as_draft').click(() => {
-			if (confirm('Apakah Anda yakin?')) {
-				$('[name="published_at"]').val('')
-				$('#edit_post').submit();
-			}
 		});
 		function readURL(input) {
 			if (input.files && input.files[0]) {
