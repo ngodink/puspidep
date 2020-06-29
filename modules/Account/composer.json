@@ -1,0 +1,25 @@
+{
+    "name": "kangrysd/account",
+    "description": "",
+    "authors": [
+        {
+            "name": "Rasyid Ridho",
+            "email": "ngodink@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Account\\Providers\\AccountServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Account\\": ""
+        }
+    }
+}
