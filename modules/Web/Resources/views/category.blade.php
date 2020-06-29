@@ -38,12 +38,12 @@
 				Tidak ada {{ strtolower($category->name) }}
 			@endforelse
 		</div>
-		<div class="col-md-4 mt-5 mt-sm-0">
-			<h5 class="mb-5"><strong>Latest Blog</strong></h5>
-			<div class="bg-light mb-4 rounded" style="height: 250px;"></div>
-			<hr class="my-4 my-sm-5">
-			<h5 class="mb-5"><strong>Latest Portofolio</strong></h5>
-			<div class="bg-light mb-4 rounded" style="height: 400px;"></div>
+		<div class="col-md-4">
+			<h5 class="mb-3"><strong>Populer</strong></h5>
+			@include('web::includes.post-widgets-1', ['posts' => $popular_posts])
+			<hr class="my-4">
+			<h5 class="mb-3"><strong>Postingan terbaru</strong></h5>
+			@include('web::includes.post-widgets-2', ['posts' => $latest_posts])
 		</div>
 	</div>
 

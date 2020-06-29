@@ -1,6 +1,6 @@
 <?php
 
-Route::domain(config('domain.account'))->name('account::')->group(function() {
+Route::prefix('account')->name('account::')->group(function() {
    
     Route::redirect('/login', '/auth/login');
 

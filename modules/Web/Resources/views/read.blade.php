@@ -2,6 +2,9 @@
 
 @section('title', $post->title.' - ')
 
+@section('meta_description', Str::words(strip_tags($post->content), 15))
+@section('meta_image', $post->img ? Storage::url($post->img) : null)
+
 @section('content')
 <div class="container py-4 bg-white rounded">
 	<div class="row">

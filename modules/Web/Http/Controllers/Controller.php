@@ -14,7 +14,12 @@ class Controller extends AppController
      */
     public function index(Request $request)
     {
-        return view('web::index');
+        $categories = BlogCategory::get();
+
+        $latest_posts = BlogPost::getLatestPublishedPost();
+        $popular_posts = BlogPost::getMostViewedPosts(6);
+
+        return view('web::index', compact('categories', 'latest_posts', 'popular_posts'));
     }
 
     /**
@@ -25,8 +30,10 @@ class Controller extends AppController
         $category = BlogCategory::findBySlugOrFail($category);
 
         $posts = $category->posts()->with('author')->orderByDesc('published_at')->simplePaginate(5);
+        $latest_posts = BlogPost::getLatestPublishedPost();
+        $popular_posts = BlogPost::getMostViewedPosts(6);
 
-        return view('web::category', compact('category', 'posts'));
+        return view('web::category', compact('category', 'posts', 'latest_posts', 'popular_posts'));
     }
 
     /**

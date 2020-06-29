@@ -1,9 +1,42 @@
 @extends('web::layouts.default')
 
 @section('content')
-<div class="container text-center mt-5 pt-5">
-	<div class="display-2 mb-4">503</div>
-	<h4><strong>Mohon maaf!</strong></h4>
-	<p class="text-muted">Website <strong>{{ env('APP_URL') }}</strong> sedang mengalami perbaikan, silahkan tunggu beberapa waktu kedepan.</p>
+<div class="container py-4 bg-white rounded">
+	<div class="row">
+		<div class="col-md-8">
+			@include('web::includes.post-widgets-4', ['posts' => $latest_posts])
+			<div class="card-columns" style="column-count: 2;">
+				@foreach($categories as $category)
+					@php($posts = $category->load(['posts' => function($q) { return $q->take(6); }])->posts)
+					<div class="card bg-light border-0">
+						<div class="card-body">
+							<p><a class="text-muted" href="{{ route('web::category', ['category' => $category->slug]) }}"><strong>{{ $category->name }}</strong></a></p>
+							@include('web::includes.post-widgets-3', ['posts' => $posts])
+							@if($posts->count())
+								<a href="{{ route('web::category', ['category' => $category->slug]) }}"><small>Lebih banyak &raquo;</small></a>
+							@endif
+						</div>
+					</div>
+				@endforeach
+			</div>
+			{{-- @foreach($categories as $category)
+				<h5 class="mb-3">
+					<a class="text-dark" href="{{ route('web::category', ['category' => $category->slug]) }}"><strong>{{ $category->name }}</strong></a>
+				</h5>
+				@include('web::includes.post-widgets-1', ['posts' => $category->load(['posts' => function($q) { return $q->take(6); }])->posts])
+				<a href="{{ route('web::category', ['category' => $category->slug]) }}"><strong>Lebih banyak &raquo;</strong></a>
+				@if(!$loop->last)
+					<hr class="my-4">
+				@endif
+			@endforeach --}}
+		</div>
+		<div class="col-md-4">
+			<h5 class="mb-3"><strong>Populer</strong></h5>
+			@include('web::includes.post-widgets-1', ['posts' => $popular_posts])
+			<hr class="my-4">
+			<h5 class="mb-3"><strong>Postingan terbaru</strong></h5>
+			@include('web::includes.post-widgets-2', ['posts' => $latest_posts])
+		</div>
+	</div>
 </div>
 @endsection
