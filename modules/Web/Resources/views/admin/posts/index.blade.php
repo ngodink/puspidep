@@ -86,7 +86,7 @@
 									<i class="mdi {{ $post->commentable ? 'mdi-comment' : 'mdi-comment-remove' }}"></i> <small>{{ $post->comments_count }}</small>
 								</td>
 								<td class="align-middle">
-									<a class="btn btn-primary btn-sm rounded-pill" href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}"><i class="mdi mdi-eye-outline"></i> Detail</a>
+									<a class="btn btn-primary btn-sm rounded-pill text-nowrap" href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}"><i class="mdi mdi-eye-outline"></i> Detail</a>
 								</td>
 							</tr>
 						@empty

@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'file'          => 'nullable|file|image|max:1024',
-            'categories'    => 'exists:blog_categories,id',
+            'categories'    => 'required|exists:blog_categories,id',
             'author_id'     => 'nullable|exists:users,id',
             'title'         => 'required|string|max:191',
             'content'       => 'required|string',
