@@ -3,8 +3,7 @@
 		<div class="d-sm-flex flex-row justify-content-sm-between align-items-center text-center">
 			<div>
 				<a class="navbar-brand text-dark py-3" href="{{ route('web::index') }}">
-					<img class="pr-1" src="{{ asset('img/logo/rounded-bw-32.png') }}" alt="" style="margin-top: -5px;">
-					<strong>{{ config('app.name') }}</strong>
+					<img class="pr-1" src="{{ asset('img/logo/full.png') }}" alt="" style="margin-top: -5px;width: 300px;">
 				</a>
 			</div>
 			<div>
@@ -23,7 +22,7 @@
 	</div>
 </div>
 
-<nav class="navbar navbar-expand navbar-dark bg-dark overflow-auto mb-4">
+<nav class="navbar navbar-expand navbar-dark bg-dark overflow-auto mb-4 border-bottom-success">
 	<div class="container">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item text-nowrap">

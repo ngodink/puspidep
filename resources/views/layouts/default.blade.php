@@ -14,7 +14,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="@yield('meta_url', url()->current())" />
     <meta property="og:title" content="@yield('title'){{ config('app.name') }}" />
-    <meta property="og:image" content="@yield('meta_image', asset('img/logo/rounded-bw-128.png'))" />
+    <meta property="og:image" content="@yield('meta_image', asset('img/logo/rounded-bw-256.png'))" />
     <meta property="og:description" content="@yield('meta_description', 'Pusat Pengkajian Islam Demokrasi dan Perdamaian')" />
     @if(env('APP_DEBUG', false) == false)
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">

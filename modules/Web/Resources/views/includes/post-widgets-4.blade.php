@@ -10,6 +10,11 @@
 				<div class="black-overlay" style="@if($post->img) background: url({{ Storage::url($post->img) }}) center center no-repeat; background-size: cover; @else background-color: #3a3b45; @endif height: 400px;"></div>
 				<div class="carousel-caption mb-2">
 					<h5><strong>{{ $post->title }}</strong></h5>
+					<div class="mb-2">
+						@foreach($post->categories as $category)
+							<strong class="badge badge-pill badge-success">{{ $category->name }}</strong>
+						@endforeach
+					</div>
 					<p>
 						<i class="mdi mdi-eye"></i> <small>{{ $post->views_count }}</small>
 						{{-- <i class="mdi mdi-heart"></i> <small>{{ $post->likes_count }}</small> --}}
