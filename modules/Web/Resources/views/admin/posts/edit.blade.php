@@ -18,7 +18,7 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label>Kategori</label>
-						<div class="rounded border p-2">
+						<div class="rounded border @error('categories') border-danger @enderror p-2">
 							@foreach($categories as $category)
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input" name="categories[]" id="category{{ $category->id }}" value="{{ $category->id }}" @if(in_array($category->id, old('categories', $post->categories->pluck('id')->toArray() ?? []))) checked @endif>
@@ -27,7 +27,7 @@
 							@endforeach
 						</div>
 						@error('categories')
-							<span class="invalid-feedback">{{ $message }}</span>
+							<small class="text-danger">{{ $message }}</small>
 						@enderror
 					</div>
 					<div class="form-group">
@@ -47,7 +47,7 @@
 						@enderror
 					</div>
 					<label>Foto cover</label>
-					<div class="border rounded text-center mb-3">
+					<div class="border @error('file') border-danger @enderror rounded text-center mb-3">
 						<img id="upload-preview" class="img-fluid" src="{{ $post->img ? Storage::url($post->img) : asset('img/no-image.png') }}" alt="" style="max-height: 224px;">
 					</div>
 					<div class="form-group">
