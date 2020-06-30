@@ -2,7 +2,7 @@
 	@forelse($posts as $post)
 		<a class="text-dark" href="{{ route('web::read', ['category' => $post->category()->slug, 'slug' => $post->slug]) }}">
 			<div class="d-flex flex-row align-items-center justify-content-between mb-2">
-				<div class="rounded mr-2" style="background: url({{ asset('storage/'.$post->img) }}) center center no-repeat; background-size: cover; min-width: 60px; height: 60px;"></div>
+				<div class="rounded mr-2" style="background: url({{ Storage::url($post->img) }}) center center no-repeat; background-size: cover; min-width: 60px; height: 60px;"></div>
 				<div class="flex-grow-1">
 					<strong>{{ Str::limit($post->title, 50) }}</strong> <br>
 					<div class="text-muted">

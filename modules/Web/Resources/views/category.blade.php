@@ -12,7 +12,7 @@
 				<a class="text-dark" href="{{ route('web::read', ['category' => $category->slug, 'slug' => $post->slug]) }}">
 					<div class="d-sm-flex flex-row filtered align-items-center">
 						<div class="mr-sm-4">
-							<div class="filtered-img mb-3 mb-sm-0 rounded" style="background: url({{ asset('storage/'.$post->img) }}) center center no-repeat; background-size: cover; min-width: 200px; height: 200px;"></div>
+							<div class="filtered-img mb-3 mb-sm-0 rounded" style="background: url({{ Storage::url($post->img) }}) center center no-repeat; background-size: cover; min-width: 200px; height: 200px;"></div>
 						</div>
 						<div class="my-3">
 							<div class="d-flex flex-row align-items-center">
