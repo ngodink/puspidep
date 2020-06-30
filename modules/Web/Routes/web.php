@@ -19,6 +19,8 @@ Route::domain(config('domain.web'))->name('web::')->group(function() {
             // Comments
             Route::put('/comments/{comment}/approve', 'PostCommentController@approve')->name('comments.approve');
             Route::delete('/comments/{comment}', 'PostCommentController@destroy')->name('comments.destroy');
+            // Categories
+            Route::resource('/categories', 'CategoryController');
     	});
     });
 

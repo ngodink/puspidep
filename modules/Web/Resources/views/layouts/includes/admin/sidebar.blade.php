@@ -20,6 +20,7 @@
 		<div class="collapse" data-parent="#sidebar_accordion" id="sidebar_posts">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="{{ route('web::admin.posts.index') }}"> Semua postingan </a>
+				<a class="collapse-item" href="{{ route('web::admin.categories.index') }}"> Kategori </a>
 			</div>
 		</div>
 	</li>
