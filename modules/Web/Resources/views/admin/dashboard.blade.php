@@ -16,12 +16,14 @@
 			<h4 class="text-dark font-weight-bold">Selamat datang kembali {{ $user->profile->full_name }}!</h4>
 			<p class="mb-0">di Halaman Admin Pusat Pengkajian Islam Demokrasi dan Perdamaian</p>
 		</div>
-		<div class="card-columns mb-4">
+		<div class="row mb-4">
 			@foreach($categories as $category)
-				<div class="card border-0 border-left-dark">
-					<div class="card-body">
-						<h1><strong>{{ $category->posts_count }}</strong></h1>
-						<small class="text-muted">Jumlah {{ $category->name }} <br></small>
+				<div class="col-md-3">
+					<div class="card border-0 border-left-dark mb-4">
+						<div class="card-body">
+							<h3><strong>{{ $category->posts_count }}</strong></h3>
+							<small class="text-muted">Jumlah {{ $category->name }} <br></small>
+						</div>
 					</div>
 				</div>
 			@endforeach

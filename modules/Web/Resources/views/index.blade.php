@@ -7,7 +7,7 @@
 			@include('web::includes.post-widgets-4', ['posts' => $latest_posts])
 			<div id="category-lists" class="card-columns p-0">
 				@foreach($categories as $category)
-					@php($posts = $category->load(['posts' => function($q) { return $q->take(6); }])->posts)
+					@php($posts = $category->load(['posts' => function($q) { return $q->take(4); }])->posts)
 					<div class="card border-0 mb-4">
 						<div class="card-body p-0">
 							<p class="border-bottom-success">
