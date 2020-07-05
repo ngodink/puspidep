@@ -124,7 +124,7 @@ class PostController extends Controller
         $post->save();
         $post->categories()->sync($request->input('categories'));
 
-        auth()->user()->log('Mengubah postingan <strong>'.$post->name.'</strong>');
+        auth()->user()->log('Mengubah postingan <strong>'.$post->title.'</strong>');
 
         return redirect($request->get('next', route('web::admin.posts.index')))
                     ->with('success', 'Postingan berhasil diperbarui!');
@@ -137,6 +137,8 @@ class PostController extends Controller
     {
         $post->delete();
 
+        auth()->user()->log('Membuang postingan <strong>'.$post->title.'</strong>');
+
         return redirect(request('next', route('web::admin.posts.index')))
                     ->with('success', 'Postingan berhasil dibuang!');
     }
@@ -147,6 +149,8 @@ class PostController extends Controller
     public function restore(BlogPost $post)
     {
         $post->restore();
+
+        auth()->user()->log('Memulihkan postingan <strong>'.$post->title.'</strong>');
 
         return redirect(request('next', route('web::admin.posts.index')))
                     ->with('success', 'Postingan berhasil dipulihkan!');

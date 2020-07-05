@@ -35,6 +35,11 @@
 			</a>
 		</li>
 	@endcan
+	<li class="nav-item">
+		<a class="nav-link" href="{{ route('web::admin.logs') }}">
+			<i class="mdi mdi-account-clock-outline"> </i> <span> User log </span>
+		</a>
+	</li>
 	<hr class="sidebar-divider">
 	<div class="sidebar-heading"> Akun saya </div>
 	<li class="nav-item">

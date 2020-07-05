@@ -1,6 +1,7 @@
 <?php
 
 use Modules\Web\Http\Middleware\IsAdminMiddleware;
+use Modules\Account\Models\UserLog;
 
 Route::domain(config('domain.web'))->name('web::')->group(function() {
 
@@ -28,6 +29,11 @@ Route::domain(config('domain.web'))->name('web::')->group(function() {
             Route::put('/users/{user}/restore', 'UserController@restore')->name('users.restore');
             Route::delete('/users/{user}/kill', 'UserController@kill')->name('users.kill');
             Route::resource('/users', 'UserController');
+
+            Route::get('/logs', function () {
+                $logs = UserLog::with('user')->orderByDesc('created_at')->paginate();
+                return view('web::admin.logs', compact('logs'));
+            })->name('logs');
     	});
     });
 
