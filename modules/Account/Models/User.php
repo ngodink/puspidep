@@ -93,9 +93,8 @@ class User extends Authenticatable
     /**
      * Generate password.
      */
-    public static function generatePassword ($length = 2) {
-        $list = ['adam', 'idris', 'nuh', 'hud', 'sholeh', 'ibrahim', 'luth', 'ismail', 'ishaq', 'yakub', 'yusuf', 'ayub', 'suaeb', 'musa', 'harun', 'zulkifli', 'daud', 'sulaiman', 'ilyas', 'ilyasa', 'yunus', 'zakariya', 'yahya', 'isa', 'muhammad'];
-        return $list[rand(0,(count($list) - 1))].substr(str_shuffle('123456789'), 0, $length);
+    public static function generatePassword ($length = 6) {
+        return substr(str_shuffle('123456789ABCDEF'), 0, $length);
     }
 
     /**
@@ -110,6 +109,13 @@ class User extends Authenticatable
      */
     public function logs () {
         return $this->hasMany(UserLog::class);
+    }
+
+    /**
+     * This log.
+     */
+    public function log ($value) {
+        return $this->logs()->create(['log' => $value]);
     }
 
     /**
@@ -215,5 +221,14 @@ class User extends Authenticatable
      */
     public function permissions () {
         return $this->belongsToMany(Permission::class, 'user_permissions', 'user_id', 'permission_id');
+    }
+
+    /**
+     * Scope where roles is admin.
+     */
+    public function scopeWhereAdmin () {
+        return $this->whereHas('roles', function ($q) {
+            return $q->whereNotIn('id', [5]);
+        });
     }
 }

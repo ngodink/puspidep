@@ -5,6 +5,7 @@ namespace Modules\Web\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Gate;
 
 use Modules\Web\Models\BlogPost;
 use Modules\Web\Models\BlogCategory;
@@ -35,6 +36,7 @@ class WebServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
+        $this->registerGates();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -118,6 +120,34 @@ class WebServiceProvider extends ServiceProvider
         if (! app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(module_path($this->moduleName, 'Database/Factories'));
         }
+    }
+
+    /**
+     * Register an additional gates.
+     *
+     * @return void
+     */
+    public function registerGates()
+    {
+        Gate::define('administrator', function ($user) {
+            return $user->hasRoles(['root', 'admin']);
+        });
+
+        Gate::define('author', function ($user) {
+            return $user->hasRoles(['root', 'author']);
+        });
+
+        Gate::define('editor', function ($user) {
+            return $user->hasRoles(['root', 'editor']);
+        });
+
+        Gate::define('subscriber', function ($user) {
+            return $user->hasRoles(['subscriber']);
+        });
+
+        Gate::define('admin', function ($user) {
+            return $user->hasRoles(['root','admin','author','editor']);
+        });
     }
 
     /**

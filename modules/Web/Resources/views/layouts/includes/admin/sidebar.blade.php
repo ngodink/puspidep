@@ -19,62 +19,22 @@
 		</a>
 		<div class="collapse" data-parent="#sidebar_accordion" id="sidebar_posts">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="{{ route('web::admin.posts.index') }}"> Semua postingan </a>
-				<a class="collapse-item text-gray-500" href="javascript:;"> Kategori </a>
+				@canany(['author', 'editor', 'administrator'])
+					<a class="collapse-item" href="{{ route('web::admin.posts.index') }}"> Semua postingan </a>
+				@endcanany
+				@canany(['editor', 'administrator'])
+					<a class="collapse-item" href="{{ route('web::admin.categories.index') }}"> Kategori </a>
+				@endcanany
 			</div>
 		</div>
 	</li>
-	{{-- <hr class="sidebar-divider">
-	<div class="sidebar-heading"> Interface </div>
-	<li class="nav-item">
-		<a  class="nav-link collapsed" data-target="#collapseTwo" data-toggle="collapse" href="#">
-			<i class="fas fa-fw fa-cog"> </i>
-			<span> Components </span>
-		</a>
-		<div class="collapse" data-parent="#sidebar_accordion" id="collapseTwo">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header"> Custom Components: </h6>
-				<a class="collapse-item" href="buttons.html"> Buttons </a>
-				<a class="collapse-item" href="cards.html"> Cards </a>
-			</div>
-		</div>
-	</li>
-	<li class="nav-item">
-		<a  class="nav-link collapsed" data-target="#collapseUtilities" data-toggle="collapse" href="#">
-			<i class="fas fa-fw fa-wrench"> </i>
-			<span> Utilities </span>
-		</a>
-		<div class="collapse" data-parent="#sidebar_accordion" id="collapseUtilities">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header"> Custom Utilities: </h6>
-				<a class="collapse-item" href="utilities-color.html"> Colors </a>
-				<a class="collapse-item" href="utilities-border.html"> Borders </a>
-				<a class="collapse-item" href="utilities-animation.html"> Animations </a>
-				<a class="collapse-item" href="utilities-other.html"> Other </a>
-			</div>
-		</div>
-	</li>
-	<hr class="sidebar-divider">
-	<div class="sidebar-heading"> Addons </div>
-	<li class="nav-item">
-		<a  class="nav-link collapsed" data-target="#collapsePages" data-toggle="collapse" href="#">
-			<i class="fas fa-fw fa-folder"> </i>
-			<span> Pages </span>
-		</a>
-		<div class="collapse" data-parent="#sidebar_accordion" id="collapsePages">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header"> Login Screens: </h6>
-				<a class="collapse-item" href="login.html"> Login </a>
-				<a class="collapse-item" href="register.html"> Register </a>
-				<a class="collapse-item" href="forgot-password.html"> Forgot Password </a>
-				<div class="collapse-divider">
-				</div>
-				<h6 class="collapse-header"> Other Pages: </h6>
-				<a class="collapse-item" href="404.html"> 404 Page </a>
-				<a class="collapse-item" href="blank.html"> Blank Page </a>
-			</div>
-		</div>
-	</li> --}}
+	@can('administrator')
+		<li class="nav-item">
+			<a class="nav-link" href="{{ route('web::admin.users.index') }}">
+				<i class="mdi mdi-account-group"> </i> <span> Pengguna </span>
+			</a>
+		</li>
+	@endcan
 	<hr class="sidebar-divider">
 	<div class="sidebar-heading"> Akun saya </div>
 	<li class="nav-item">

@@ -146,12 +146,12 @@
 				</div>
 				<div class="list-group list-group-flush">
 					@can('updateUsername', User::class)
-						<a class="list-group-item list-group-item-action text-warning border-0" href="{{ route('account::username') }}"><i class="mdi mdi-pencil-outline"></i> Ubah username</a>
+						<a class="list-group-item list-group-item-action" href="{{ route('account::username') }}"><i class="mdi mdi-pencil-outline"></i> Ubah username</a>
 					@endcan
 					@can('update', $user)
-						<a class="list-group-item list-group-item-action text-warning border-0" href="{{ route('account::password') }}"><i class="mdi mdi-pencil-outline"></i> Ubah sandi</a>
+						<a class="list-group-item list-group-item-action" href="{{ route('account::password') }}"><i class="mdi mdi-pencil-outline"></i> Ubah sandi</a>
 					@endcan
-					<a class="list-group-item list-group-item-action text-warning" href="{{ route('account::auth.logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();"><i class="mdi mdi-logout"></i> Keluar </a>
+					<a class="list-group-item list-group-item-action" href="{{ route('account::auth.logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();"><i class="mdi mdi-logout"></i> Keluar </a>
 				</div>
 			</div>
 		</div>

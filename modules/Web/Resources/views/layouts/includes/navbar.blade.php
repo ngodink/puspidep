@@ -12,7 +12,9 @@
 				<a class="mr-2" style="color: #1da1f2" href="#"><i class="mdi mdi-twitter"></i></a>
 				<a class="mr-2" style="color: #e1306c" href="https://www.instagram.com/puspidep"><i class="mdi mdi-instagram"></i></a>
 				@auth
-					<a class="text-dark mr-2" href="{{ route('web::admin.dashboard') }}"><small>Admin</small></a>
+					@can('admin')
+						<a class="text-dark mr-2" href="{{ route('web::admin.dashboard') }}"><small>Admin</small></a>
+					@endcan
 					<a class="text-dark" href="{{ route('account::auth.logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();"><small>Logout</small></a>
 				@else
 					<a class="text-dark" href="{{ route('account::auth.login', ['next' => url()->current()]) }}"><small>Login</small></a>

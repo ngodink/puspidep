@@ -66,6 +66,7 @@ class RegisterController extends Controller
         ]);
 
         $user->profile()->save($profile);
+        $user->roles()->sync(5);
 
         return $user;
     }

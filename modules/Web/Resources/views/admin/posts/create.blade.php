@@ -33,7 +33,10 @@
 					<div class="form-group">
 						<label>Penulis</label>
 						<select type="text" class="form-control @error('author_id') is-invalid @enderror" name="author_id">
-								<option value="">-- Pilih --</option>
+							<option value="">-- Pilih --</option>
+							@foreach($authors as $author)
+								<option value="{{ $author->id }}" @if(old('author_id', auth()->id())) selected @endif>{{ $author->profile->name }} ({{ $author->username }})</option>
+							@endforeach
 						</select>
 						@error('author_id')
 							<span class="invalid-feedback">{{ $message }}</span>

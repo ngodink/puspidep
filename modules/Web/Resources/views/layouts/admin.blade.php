@@ -16,13 +16,13 @@
                 <div class="container-fluid pt-4">
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
+                            {!! session('success') !!}
                             <button type="button" class="close" data-dismiss="alert"> <span>&times;</span> </button>
                         </div>
                     @endif
                     @if(session()->has('danger'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('danger') }}
+                            {!! session('danger') !!}
                             <button type="button" class="close" data-dismiss="alert"> <span>&times;</span> </button>
                         </div>
                     @endif

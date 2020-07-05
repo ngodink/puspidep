@@ -4,6 +4,7 @@ namespace Modules\Web\Http\Controllers\Admin;
 
 use Str;
 use Storage;
+use Modules\Account\Models\User;
 use Modules\Web\Models\BlogCategory;
 use Modules\Web\Models\BlogPost;
 use Modules\Web\Models\BlogPostComment;
@@ -43,8 +44,9 @@ class PostController extends Controller
     public function create()
     {
     	$categories = BlogCategory::all();
+        $authors = User::whereAdmin()->get();
 
-    	return view('web::admin.posts.create', compact('categories'));
+    	return view('web::admin.posts.create', compact('categories', 'authors'));
     }
 
     /**
@@ -53,7 +55,7 @@ class PostController extends Controller
     public function store(StoreRequest $request)
     {
         $content = BlogPost::makeContent($request->input('content'));
-        
+
         $cover = $request->has('file')
                     ? $request->file('file')->store('blogs/'.date('Ymd'))
                     : null;
@@ -70,6 +72,8 @@ class PostController extends Controller
 
         $post->save();
         $post->categories()->sync($request->input('categories'));
+
+        auth()->user()->log('Membuat postingan <strong>'.$post->title.'</strong>');
 
         return redirect($request->get('next', route('web::admin.posts.index')))
                     ->with('success', 'Postingan berhasil dibuat!');
@@ -92,8 +96,9 @@ class PostController extends Controller
     public function edit(BlogPost $post)
     {
     	$categories = BlogCategory::all();
+        $authors = User::whereAdmin()->get();
 
-    	return view('web::admin.posts.edit', compact('post', 'categories'));
+    	return view('web::admin.posts.edit', compact('post', 'categories', 'authors'));
     }
 
     /**
@@ -110,7 +115,7 @@ class PostController extends Controller
             'title'             => $request->input('title'),
             'img'               => $cover ?? $post->img,
             'content'           => $content,
-            'author_id'         => $request->input('author_id'),
+            'author_id'         => $request->post('author_id'),
             'commentable'       => $request->input('commentable', 0),
             'visibled'          => 1,
             'published_at'      => $request->input('published_at'),
@@ -118,6 +123,8 @@ class PostController extends Controller
 
         $post->save();
         $post->categories()->sync($request->input('categories'));
+
+        auth()->user()->log('Mengubah postingan <strong>'.$post->name.'</strong>');
 
         return redirect($request->get('next', route('web::admin.posts.index')))
                     ->with('success', 'Postingan berhasil diperbarui!');
@@ -150,6 +157,8 @@ class PostController extends Controller
      */
     public function kill(BlogPost $post)
     {
+        auth()->user()->log('Menghapus postingan <strong>'.$post->title.'</strong>');
+
         $post->forceDelete();
 
         return redirect(request('next', route('web::admin.posts.index')))

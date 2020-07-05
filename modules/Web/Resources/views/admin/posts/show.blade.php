@@ -35,10 +35,12 @@
 					</div>
 					<div class="text-muted mb-2">{{ \Str::words(strip_tags($post->content), 20) }}</div>
 					<div>
-						<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id, 'next' => url()->current()]) }}">Edit</a>
-						<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.destroy', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
-							<button class="btn btn-link align-baseline text-danger p-0 mr-2">Buang</button>
-						</form>
+						@canany(['editor', 'administrator'])
+							<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id, 'next' => url()->current()]) }}">Edit</a>
+							<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.destroy', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
+								<button class="btn btn-link align-baseline text-danger p-0 mr-2">Buang</button>
+							</form>
+						@endcanany
 						<a href="{{ route('web::read', ['category' => $post->category()->slug, 'slug' => $post->slug, 'next' => $url]) }}" target="_blank">Lihat</a>
 					</div>
 				</div>

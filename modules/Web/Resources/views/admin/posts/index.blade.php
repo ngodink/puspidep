@@ -56,17 +56,23 @@
 									@endif
 									<br>
 									@if($post->trashed())
-										<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.restore', ['post' => $post->id]) }}" method="POST"> @csrf @method('PUT')
-											<button class="btn btn-link align-baseline text-success p-0 mr-2">Pulihkan</button>
-										</form>
-										<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.kill', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
-											<button class="btn btn-link align-baseline text-danger p-0 mr-2">Hapus permanen</button>
-										</form>
+										@canany(['author', 'editor', 'administrator'])
+											<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.restore', ['post' => $post->id]) }}" method="POST"> @csrf @method('PUT')
+												<button class="btn btn-link align-baseline text-success p-0 mr-2">Pulihkan</button>
+											</form>
+											@can('administrator')
+												<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.kill', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
+													<button class="btn btn-link align-baseline text-danger p-0 mr-2">Hapus permanen</button>
+												</form>
+											@endcanany
+										@endcanany
 									@else
-										<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id, 'next' => url()->current()]) }}">Edit</a>
-										<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.destroy', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
-											<button class="btn btn-link align-baseline text-danger p-0 mr-2">Buang</button>
-										</form>
+										@canany(['editor', 'administrator'])
+											<a class="mr-2" href="{{ route('web::admin.posts.edit', ['post' => $post->id, 'next' => url()->current()]) }}">Edit</a>
+											<form class="d-inline form-confirm form-block" action="{{ route('web::admin.posts.destroy', ['post' => $post->id]) }}" method="POST"> @csrf @method('DELETE')
+												<button class="btn btn-link align-baseline text-danger p-0 mr-2">Buang</button>
+											</form>
+										@endcanany
 										<a href="{{ route('web::read', ['category' => $post->category()->slug, 'slug' => $post->slug, 'next' => $url]) }}" target="_blank">Lihat</a>
 									@endif
 								</td>
@@ -86,12 +92,14 @@
 									<i class="mdi {{ $post->commentable ? 'mdi-comment' : 'mdi-comment-remove' }}"></i> <small>{{ $post->comments_count }}</small>
 								</td>
 								<td class="align-middle">
-									<a class="btn btn-primary btn-sm rounded-pill text-nowrap" href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}"><i class="mdi mdi-eye-outline"></i> Detail</a>
+									@if(!$post->trashed())
+										<a class="btn btn-primary btn-sm rounded-pill text-nowrap" href="{{ route('web::admin.posts.show', ['post' => $post->id, 'next' => url()->current()]) }}"><i class="mdi mdi-eye-outline"></i> Detail</a>
+									@endif
 								</td>
 							</tr>
 						@empty
 							<tr>
-								<td class="text-center" colspan="4">Tidak ada data</td>
+								<td class="text-center" colspan="5">Tidak ada data</td>
 							</tr>
 						@endforelse
 					</tbody>

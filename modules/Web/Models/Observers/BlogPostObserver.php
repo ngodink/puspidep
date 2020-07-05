@@ -15,7 +15,6 @@ class BlogPostObserver
     public function saving(BlogPost $post)
     {
         $post->slug = Str::slug($post->title);
-        $post->author_id = (!$post->author_id) ? (Auth::check() ? Auth::id() : null) : null;
     }
 
     /**
