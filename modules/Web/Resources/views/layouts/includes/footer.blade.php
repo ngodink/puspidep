@@ -10,13 +10,13 @@
 				</div>
 				<ul class="list-unstyled">
 					<li class="mb-2">
-						<a class="text-dark h5" href="https://www.facebook.com/puspidep.puspidep.9"><i class="mdi mdi-facebook"></i> <small>PusPIDeP Yogyakarta </small></a>
+						<a class="h5" style="color: #3b5998" href="https://www.facebook.com/puspidep.puspidep.9"><i class="mdi mdi-facebook"></i> <small>PusPIDeP Yogyakarta </small></a>
 					</li>
 					<li class="mb-2">
-						<a class="text-dark h5" href="#"><i class="mdi mdi-twitter"></i> <small>PusPIDeP</small></a>
+						<a class="h5" style="color: #1da1f2" href="#"><i class="mdi mdi-twitter"></i> <small>PusPIDeP</small></a>
 					</li>
 					<li class="mb-2">
-						<a class="text-dark h5" href="https://www.instagram.com/puspidep"><i class="mdi mdi-instagram"></i> <small>@puspidep</small></a>
+						<a class="h5" style="color: #e1306c" href="https://www.instagram.com/puspidep"><i class="mdi mdi-instagram"></i> <small>@puspidep</small></a>
 					</li>
 				</ul>
 			</div>
