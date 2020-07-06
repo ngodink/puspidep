@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark overflow-auto mb-4 border-bottom-success">
 	<div class="container">
-		<ul class="navbar-nav d-sm-flex flex-row justify-content-sm-center w-100">
+		<ul class="navbar-nav d-sm-flex flex-row justify-content-sm-between w-100">
 			<li class="nav-item text-nowrap">
 				<a class="nav-link" href="{{ route('web::index') }}">
 					<i class="mdi mdi-home-outline mdi-18px" style="line-height: 1.4rem;"></i>
