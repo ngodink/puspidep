@@ -25,7 +25,7 @@
 					<strong>Alamat</strong>
 				</div>
 				Jl. Gurami No. 51 Kelurahan Sorosutan, Kecamatan Umbulharjo, Kota Yogyakarta, DIY. <br>
-				Email: <a class="text-dark" href="mailto:puspidep@gmail.com">puspidep@gmail.com</a> <br>
+				Email: <a class="text-dark" href="mailto:info@puspidep.org">info@puspidep.org</a> <br>
 				Telp: 02744399482
 			</div>
 		</div>

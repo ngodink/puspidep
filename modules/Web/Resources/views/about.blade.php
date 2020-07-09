@@ -78,7 +78,7 @@
 				</div>
 				<div>
 					<strong>E-mail</strong> <br>
-					<a class="text-dark" href="mailto:puspidep@gmail.com">puspidep@gmail.com</a>
+					<a class="text-dark" href="mailto:info@puspidep.org">info@puspidep.org</a>
 				</div>
 			</div>
 			<div class="d-flex flex-row align-items-center mb-5">
